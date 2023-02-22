@@ -405,6 +405,53 @@ fn if_let_compiler_macro() {
     // so, it's irrefutable, and the println macro will be included in the compiled code.
 }
 
+fn while_for_loop_loops() {
+    // this is an infinite loop
+    // loop {
+    //     println!("Hello")
+    // }
+
+    // the way to break from the loop is to just break as usual
+    let mut counter = 0;
+    loop {
+        counter += 1;
+        if counter == 3 {
+            continue;
+        }
+        if counter != 5 {
+            println!("{}", counter);
+        }
+        if counter == 10 {
+            break;
+        }
+    }
+
+    // while loops
+    let mut counter = 1;
+    while counter <= 10 {
+        println!("{}", counter);
+        counter += 1;
+    }
+
+    // for loops over collections
+    for index in 1..=10 {
+        println!("The index is '{}'", index);
+    }
+
+    // Iterator Trait, it's like an interface
+    // trait Iterator {
+    //     type  Item;
+    //     fn next(&mut self) -> Option<Self::Item>;
+    // }
+
+    let duck_aircrafts = ["Boeing 737", "Boeing 767", "Boeing 787", "Airbus 319", "Airbus 320"];
+
+    // arrays have the Trait "iter()", which returns a collection
+    for aircraft in duck_aircrafts.iter() {
+        println!("Aircraft is '{}'", aircraft);
+    }
+}
+
 fn main() {
     data_types_and_variables();
 
@@ -429,4 +476,8 @@ fn main() {
     work_with_options_enums();
 
     if_let_compiler_macro();
+
+    while_for_loop_loops();
+
+
 }
