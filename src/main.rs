@@ -2,24 +2,20 @@
 #![allow(unused_variables)]
 
 // entrypoint of the command, () as regular function
-fn main() {
-    // ! is a macro and not a function, set of code that has a name
-    let unused_variable: u32 = 0;
-    println!("Hello, world!");
 
-    // To view macros, install the subcommand "cargo install cargo-expand"
-    // Go to the terimnal and type
+// To view macros, install the subcommand "cargo install cargo-expand"
+// Go to the terimnal and type
 
-    /*
+/*
 
-    1. Install cargo subcommand https://github.com/dtolnay/cargo-expand
-    2. Set the nightly build to avoid the error
-       https://stackoverflow.com/questions/48675235/error-the-option-z-is-only-accepted-on-the-nightly-compiler/48675452#48675452
-    3. Re-run the command expand
+1. Install cargo subcommand https://github.com/dtolnay/cargo-expand
+2. Set the nightly build to avoid the error
+   https://stackoverflow.com/questions/48675235/error-the-option-z-is-only-accepted-on-the-nightly-compiler/48675452#48675452
+3. Re-run the command expand
 
 $ cargo expand --bin rust-fundamentals --color=always --tests
-   Compiling rust-fundamentals v0.1.0 (/Users/marcellodesales/dev/github.com/marcellodesales/rust-fundamentals)
-    Finished test [unoptimized + debuginfo] target(s) in 0.30s
+Compiling rust-fundamentals v0.1.0 (/Users/marcellodesales/dev/github.com/marcellodesales/rust-fundamentals)
+Finished test [unoptimized + debuginfo] target(s) in 0.30s
 
 #![feature(prelude_import)]
 #![allow(unused_variables)]
@@ -29,17 +25,22 @@ use std::prelude::rust_2021::*;
 extern crate std;
 #[allow(dead_code)]
 fn main() {
-    {
-        ::std::io::_print(format_args!("Hello, world!\n"));
-    };
+{
+    ::std::io::_print(format_args!("Hello, world!\n"));
+};
 }
 #[rustc_main]
 pub fn main() -> () {
-    extern crate test;
-    test::test_main_static(&[])
+extern crate test;
+test::test_main_static(&[])
 }
 
-     */
+ */
+
+fn data_types_and_variables() {
+    // ! is a macro and not a function, set of code that has a name
+    let unused_variable: u32 = 0;
+    println!("Hello, world!");
 
     // https://doc.rust-lang.org/book/ch03-02-data-types.html
 
@@ -67,10 +68,9 @@ pub fn main() -> () {
     // destruction of array or tuple, it's better for usability
     let (name, latitude, longitude) = loc;
     println!("Location using destruction name: {}, lat: {}, lon: {}", name, latitude, longitude);
+}
 
-
-    // https://doc.rust-lang.org/book/ch04-03-slices.html
-
+fn strings_and_string_slices() {
     // Strings mutable, stored in the heap because it can grow and shrink in size
     // The size is not constant so it cannot be stored in the stack
     let person_name_string: String = "Donald Mallard".to_string();
@@ -108,7 +108,9 @@ pub fn main() -> () {
     // concatenate
     slogan = slogan + "every time";
     println!("Our slogan: {}", slogan);
+}
 
+fn numbers_variables() {
     // Rust can infer the data type at compile type, so there's no need to declare the type
     //let name:type = initial value;
 
@@ -152,10 +154,9 @@ pub fn main() -> () {
     let number: u8 = 65;
     let letter: char = number as char;
     println!("Char is {}", letter);
+}
 
-
-    // Scope and Shadowing
-
+fn variable_scope_and_shadowing() {
     let scope_test = "outer scope";
     println!("{}", scope_test);
     {
@@ -168,11 +169,13 @@ pub fn main() -> () {
     println!("{}", scope_test);
 
     // https://www.reddit.com/r/rust/comments/xx6ibp/what_is_the_logic_behind_shadowing/
+    // changing the type of a variable in the same scope
     let a = "String";
     let a: f32 = 5.6;
+}
 
+fn language_operators() {
     // OPERATORS
-
     let modules = 18 % 7;
     println!("{}", modules);
 
@@ -234,4 +237,18 @@ pub fn main() -> () {
     // >> shift operator is dividing a number by 2, 4, 8, 16, etc
     // 01010110 << 00011011 = 010011010
     println!("bitwise right shift division  {}", 86 >> 1);
+}
+
+fn main() {
+    data_types_and_variables();
+
+    // https://doc.rust-lang.org/book/ch04-03-slices.html
+    strings_and_string_slices();
+
+    // https://doc.rust-lang.org/std/
+    numbers_variables();
+
+    variable_scope_and_shadowing();
+
+    language_operators();
 }
