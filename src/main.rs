@@ -37,7 +37,7 @@ test::test_main_static(&[])
 
  */
 
-use std::fs::File;
+use std::fs::{File, OpenOptions};
 use std::io::{ErrorKind, Error, Read, Write};
 
 fn data_types_and_variables() {
@@ -819,6 +819,15 @@ fn handle_error_recoverable_errors() {
     //     kind: NotFound,
     //     message: "No such file or directory",
     // }
+    match write_to_file_with_propagation(file_name) {
+        Ok(_) => {
+            println!("Wrote to file {}", file_name);
+        }
+        Err(error) => {
+            println!("Couldn't write to file {}", file_name);
+            println!("{:#?}", error);
+        }
+    }
 
     // Now that we have provided propagation of errors, we can call the method with match!
     match read_file_with_propagation(file_name) {
@@ -845,7 +854,6 @@ fn open_file(file_name: &str) {
                   match File::create(file_name) {
                       Ok(file) => {
                           println!("Created file {}", file_name);
-                          //write_to_file_with_propagation(file_name);
                       }
                       Err(error) => {
                           println!("Couldn't create file at {}. Missing permission?", file_name);
@@ -862,15 +870,18 @@ fn open_file(file_name: &str) {
     }
 }
 
-// fn write_to_file_with_propagation(filename: &str) -> Result<String, Error> {
-//     // the ? after the method call is to abort the method execution and throw the error from here
-//     let mut file_handler = File::open(filename)?;
-//
-//     // as the method can be error, let's just add the ? into the method
-//     file_handler.write_all(b"Marcello is here!")?;
-//
-//     Ok(());
-// }
+fn write_to_file_with_propagation(filename: &str) -> Result<(), Error> {
+    // https://stackoverflow.com/questions/31192956/whats-the-de-facto-way-of-reading-and-writing-files-in-rust-1-x/66484174#66484174
+    // the ? after the method call is to abort the method execution and throw the error from here
+    let mut file_handler = OpenOptions::new()
+        .append(true)
+        .open(filename)?;
+
+    // as the method can be error, let's just add the ? into the method
+    file_handler.write_all(b"Marcello is here!")?;
+
+    Ok(())
+}
 
 fn read_file_with_propagation(filename: &str) -> Result<String, Error> {
     // the ? after the method call is to abort the method execution and throw the error from here
