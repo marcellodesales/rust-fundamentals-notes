@@ -106,9 +106,8 @@ fn main() {
     // error_handling::ErrorHandling::unrecoverable_error();
     error_handling::ErrorHandling::handle_error_recoverable_errors();
 
-    data_structures_and_traits::StructsAndTraits::waypoint_data_structures_with_associated_data();
-
-    project::ProjectV3::traits_for_structs_and_impl();
+    data_structures_and_traits::StructsAndImpls::waypoint_data_structures_with_associated_data();
+    data_structures_and_traits::Traits::traits_for_structs_and_impl();
 
     collections::Collections::collections_support_sequences();
     collections::Collections::collections_support_queues();

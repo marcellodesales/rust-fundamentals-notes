@@ -1,5 +1,5 @@
 
-pub mod StructsAndTraits {
+pub mod StructsAndImpls {
 
     /**
      * The waypoint of the code
@@ -74,5 +74,59 @@ pub mod StructsAndTraits {
         let kcle_kslc = Segment::new(kcle, kslc);
         let distance = kcle_kslc.distance();
         println!("Distance from kcle to kslc is '{:.1}' kilometers", distance)
+    }
+}
+
+pub mod Traits {
+
+    use crate::geo;
+
+    struct Boeing {
+        required_crew: u8,
+        range: u16
+    }
+
+    struct Airbus {
+        required_crew: u8,
+        range: u16
+    }
+
+    // Traits is
+    trait Flight {
+        fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool;
+    }
+
+    impl Flight for Boeing {
+        fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool {
+            // boeing you must have enough fuel for the destination + 150 miles
+            available_crew >= required_crew && range + 150 > distance
+        }
+    }
+
+    impl Flight for Airbus {
+        fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool {
+            // boeing you must have enough fuel for the destination + 280 miles
+            available_crew >= required_crew && range + 280 > distance
+        }
+    }
+
+    pub fn traits_for_structs_and_impl() {
+        let boeing = Boeing{
+            required_crew: 4,
+            range: 7403
+        };
+        let airbus = Airbus{
+            required_crew: 7,
+            range: 5280
+        };
+
+        let b_l = boeing.is_legal(boeing.required_crew, 18,
+                                  boeing.range, 2385);
+        let a_l = airbus.is_legal(airbus.required_crew, 3,
+                                  airbus.range, 2200);
+
+        println!("Is boeing flight legal? {}\nIs airbus flight legal: {}", b_l, a_l);
+
+        println!("Now generating a random value: {}", geo::Calculations::make_random_number());
     }
 }
