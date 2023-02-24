@@ -1,5 +1,7 @@
 
 pub mod Calculations {
+    use rand::Rng;
+
     // https://doc.rust-lang.org/book/ch07-00-managing-growing-projects-with-packages-crates-and-modules.html
     const EARTH_RADIOS_IN_KILOMETERS: f64 = 6371.0;
 
@@ -18,5 +20,11 @@ pub mod Calculations {
 
         let central_angle = 2.0 * inner_central_angle.sqrt().asin();
         EARTH_RADIOS_IN_KILOMETERS * central_angle
+    }
+
+    pub fn make_random_number() -> f64 {
+        let mut rng = rand::thread_rng();
+        let random_number: f64 = rng.gen();
+        return random_number;
     }
 }

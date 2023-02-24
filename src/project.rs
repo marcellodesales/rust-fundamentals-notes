@@ -84,6 +84,8 @@ pub mod ProjectV2 {
 
 pub mod ProjectV3 {
 
+    use crate::geo;
+
     struct Boeing {
         required_crew: u8,
         range: u16
@@ -128,6 +130,8 @@ pub mod ProjectV3 {
         let a_l = airbus.is_legal(airbus.required_crew, 3,
                                   airbus.range, 2200);
 
-        println!("Is boeing flight legal? {}\nIs airbus flight legal: {}", b_l, a_l)
+        println!("Is boeing flight legal? {}\nIs airbus flight legal: {}", b_l, a_l);
+
+        println!("Now generating a random value: {}", geo::Calculations::make_random_number());
     }
 }
