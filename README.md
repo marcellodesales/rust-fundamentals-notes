@@ -1,5 +1,7 @@
 # Rust Fundamentals
 
+> **NOTE**: First contrib to Rust repo: https://github.com/rust-lang/mdBook/pull/2030
+
 Why learn rust? Rust memory management is handled by Rust itself, without the need of a garbage collector.
 
 * C/C++ needs a malloc for memory management
