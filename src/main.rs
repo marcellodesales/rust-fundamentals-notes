@@ -59,6 +59,7 @@ pub mod data_structures_and_traits;
 pub mod collections;
 pub mod generics;
 pub mod concurrency;
+pub mod geo;
 
 fn main() {
     // Split modules https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html

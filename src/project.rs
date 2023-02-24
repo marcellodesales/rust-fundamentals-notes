@@ -1,30 +1,13 @@
 
-
-mod geo {
-    const EARTH_RADIOS_IN_KILOMETERS: f64 = 6371.0;
-
-    // private method/function, as everything is by default private in modules!
-    // this is the encapsulation of methods.
-    pub fn distance(start_lat: f64, start_lon: f64, end_lat: f64, end_lon: f64) -> f64 {
-        let delta_lat = (start_lat - end_lat).to_radians();
-        let delta_lon = (start_lon - end_lon).to_radians();
-
-        // https://doc.rust-lang.org/std/
-
-        let inner_central_angle = f64::powi((delta_lat / 2.0).sin(), 2)
-            + start_lat.to_radians().cos()
-            * end_lat.to_radians().cos()
-            * f64::powi((delta_lon / 2.0).sin(), 2);
-
-        let central_angle = 2.0 * inner_central_angle.sqrt().asin();
-        EARTH_RADIOS_IN_KILOMETERS * central_angle
-    }
-}
-
 pub mod ProjectV1 {
 
-    use crate::project::geo;
-    use crate::project;
+    // This declaration DEPENDS ON THE MAIN FUNCTION pub mod geo declaration!!!!
+    // https://stackoverflow.com/questions/46829539/how-to-include-files-from-same-directory-in-a-module-using-cargo-rust/46829631#46829631
+    // https://doc.rust-lang.org/book/ch07-00-managing-growing-projects-with-packages-crates-and-modules.html
+    use crate::geo;
+
+    // we can use aliases for functions if there are collisions around the function names
+    //use crate::geo::Calculations::distance as distance_calc;
 
     // HAVERSINE FORMULA
     pub fn calculate_distance_between_airports() {
@@ -34,7 +17,7 @@ pub mod ProjectV1 {
         let kslc_lat_degrees: f64 = 40.7861;
         let kslc_lon_degrees: f64 = -111.9822;
 
-        let distance = project::geo::distance(kcle_lat_degrees,
+        let distance = geo::Calculations::distance(kcle_lat_degrees,
                                               kcle_lon_degrees, kslc_lat_degrees,
                                               kslc_lon_degrees);
         println!("The distance between two points is {:.1} kolometers", distance);
@@ -43,7 +26,7 @@ pub mod ProjectV1 {
 
 pub mod ProjectV2 {
 
-    use crate::project::geo;
+    use crate::geo;
 
     pub fn calculate_distance_between_airports() {
         // array of routes
@@ -84,7 +67,7 @@ pub mod ProjectV2 {
                     continue;
                 }
                 Some(previous_value) => {
-                    let distance = geo::distance(previous_value.1,
+                    let distance = geo::Calculations::distance(previous_value.1,
                                                  previous_value.2, waypoint.1,
                                                  waypoint.2);
                     total_distance += distance;
