@@ -58,6 +58,7 @@ pub mod error_handling;
 pub mod data_structures_and_traits;
 pub mod collections;
 pub mod generics;
+pub mod concurrency;
 
 fn main() {
     // Split modules https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html
@@ -116,4 +117,7 @@ fn main() {
     generics::Generics::generics_for_structs();
     generics::Generics::generics_for_lifetime();
     generics::Generics::generics_contraints();
+
+    concurrency::Concurrency::create_thread();
+    concurrency::Concurrency::threads_communication_by_messaging_passing();
 }
