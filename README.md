@@ -1,6 +1,7 @@
 # Rust Fundamentals
 
 > **NOTE**: First contrib to Rust repo: https://github.com/rust-lang/mdBook/pull/2030
+> * TODO: Revisit the studies with https://doc.rust-lang.org/rust-by-example
 
 Why learn rust? Rust memory management is handled by Rust itself, without the need of a garbage collector.
 
@@ -346,5 +347,6 @@ Packaged 20 files, 66.6KiB (18.9KiB compressed)
 # Additional Studies
 
 * Study https://github.com/rust-lang/rustlings
+* https://doc.rust-lang.org/rust-by-example
 * https://cheats.rs/ shows everything about rust!!!
 * Ask questions at https://www.rust-lang.org/community
