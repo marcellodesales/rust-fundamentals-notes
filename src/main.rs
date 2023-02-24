@@ -37,9 +37,6 @@ test::test_main_static(&[])
 
  */
 
-use std::fmt::Display;
-use std::ops::{Add, Mul};
-
 //  Split modules https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html
 pub mod data_types_and_variables;
 use crate::data_types_and_variables::DataTypesAndModules;
@@ -62,24 +59,6 @@ pub mod data_structures_and_traits;
 pub mod collections;
 pub mod generics;
 
-fn variable_scope_and_shadowing() {
-    let scope_test = "outer scope";
-    println!("{}", scope_test);
-    {
-        // variables in the inner scope can be re-declared
-        // re-declaration is called shadowing
-        // https://www.reddit.com/r/rust/comments/xx6ibp/what_is_the_logic_behind_shadowing/
-        let scope_test = "inner scope";
-        println!("{}", scope_test);
-    }
-    println!("{}", scope_test);
-
-    // https://www.reddit.com/r/rust/comments/xx6ibp/what_is_the_logic_behind_shadowing/
-    // changing the type of a variable in the same scope
-    let a = "String";
-    let a: f32 = 5.6;
-}
-
 fn main() {
     // Split modules https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html
     DataTypesAndModules::hello_world();
@@ -96,8 +75,7 @@ fn main() {
     NumbersAndVariables::signed_and_unsined_integers();
     NumbersAndVariables::floating_point_numbers_and_casting();
     NumbersAndVariables::unicode_numbers();
-
-    variable_scope_and_shadowing();
+    NumbersAndVariables::variable_scope_and_shadowing();
 
     LanguageOperators::modulus_operator();
     LanguageOperators::power_operator();

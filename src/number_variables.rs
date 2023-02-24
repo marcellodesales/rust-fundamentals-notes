@@ -52,4 +52,22 @@ pub mod NumbersAndVariables {
         let letter: char = number as char;
         println!("Char is {}", letter);
     }
+
+    pub fn variable_scope_and_shadowing() {
+        let scope_test = "outer scope";
+        println!("{}", scope_test);
+        {
+            // variables in the inner scope can be re-declared
+            // re-declaration is called shadowing
+            // https://www.reddit.com/r/rust/comments/xx6ibp/what_is_the_logic_behind_shadowing/
+            let scope_test = "inner scope";
+            println!("{}", scope_test);
+        }
+        println!("{}", scope_test);
+
+        // https://www.reddit.com/r/rust/comments/xx6ibp/what_is_the_logic_behind_shadowing/
+        // changing the type of a variable in the same scope
+        let a = "String";
+        let a: f32 = 5.6;
+    }
 }
