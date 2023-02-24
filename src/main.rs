@@ -43,38 +43,9 @@ use std::fs::{File, OpenOptions};
 use std::io::{ErrorKind, Error, Read, Write};
 use std::ops::{Add, Mul};
 
-fn data_types_and_variables() {
-    // ! is a macro and not a function, set of code that has a name
-    let unused_variable: u32 = 0;
-    println!("Hello, world!");
-
-    // https://doc.rust-lang.org/book/ch03-02-data-types.html
-
-    // array with default values
-    let location: [f32; 2] = [41.4094069, -81.8546911];
-
-    // initialization
-    let loc: [f32; 2] = [0.0, 0.0];
-
-    // initialization of larger sized array with ";"
-    let loc: [f64; 100] = [0.0; 100];
-    println!("Initial value: {}", loc[33]);
-
-    //print!("Location name: {}", loc[110]);
-    //    |
-    // 52 |     print!("Location name: {}", loc[110]);
-    //    |                                 ^^^^^^^^ index out of bounds: the length is 100 but the index is 110
-
-    // We use tuples to associate other types, using ( )
-    let loc: (&str, f64, f64) = ("KCLE", 41.4094069, -81.8546911);
-
-    // tuple indexing is with var.x
-    println!("Location using index name: {}, lat: {}, lon: {}", loc.0, loc.1, loc.2);
-
-    // destruction of array or tuple, it's better for usability
-    let (name, latitude, longitude) = loc;
-    println!("Location using destruction name: {}, lat: {}, lon: {}", name, latitude, longitude);
-}
+//  Split modules https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html
+pub mod data_types_and_variables;
+use crate::data_types_and_variables::DataTypesAndModules;
 
 fn strings_and_string_slices() {
     // Strings mutable, stored in the heap because it can grow and shrink in size
@@ -1298,7 +1269,10 @@ fn generics_for_structs() {
 }
 
 fn main() {
-    data_types_and_variables();
+    // Split modules https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html
+    DataTypesAndModules::hello_world();
+    DataTypesAndModules::arrays();
+    DataTypesAndModules::tuplues();
 
     // https://doc.rust-lang.org/book/ch04-03-slices.html
     strings_and_string_slices();
