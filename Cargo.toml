@@ -1,8 +1,12 @@
 [package]
 name = "rust-fundamentals"
+description = "Learning rust fundamentals module"
 version = "0.1.0"
+# Edition of the cargo file, not of the file itself
 edition = "2021"
+# License using the SPDX format https://spdx.org/licenses/
+license = "Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+rand = "0.8.5"
