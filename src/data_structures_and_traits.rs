@@ -110,6 +110,11 @@ pub mod Traits {
         }
     }
 
+    // Just like java, we can take the trait as a param
+    // pub fn take_any_flight_trait(flight_trait: &Flight) {
+    //     return flight_trait.is_legal();
+    // }
+
     pub fn traits_for_structs_and_impl() {
         let boeing = Boeing{
             required_crew: 4,

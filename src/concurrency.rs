@@ -59,6 +59,8 @@ pub mod Concurrency {
         // Since they are producers of data and single consumers (talking to each other)
         // We are going to use mpsc - multiple producers, single consumers.
 
+        // value used here after moverustc(E0382): You used a transmitter in multiple threads without cloning it.
+
 
         let (john_sender_channel , john_receiver_channel) = mpsc::channel();
         let (sarah_sender_channel, sarah_receiver_channel) = mpsc::channel();

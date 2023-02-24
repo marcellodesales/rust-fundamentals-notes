@@ -65,6 +65,7 @@ fn main() {
     // Split modules https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html
     DataTypesAndModules::hello_world();
     DataTypesAndModules::arrays();
+    DataTypesAndModules::compiles_but_generates_runtime_error();
     DataTypesAndModules::tuplues();
 
     // https://doc.rust-lang.org/book/ch04-03-slices.html

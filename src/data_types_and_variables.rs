@@ -9,6 +9,9 @@ pub mod DataTypesAndModules {
         // ! is a macro and not a function, set of code that has a name
         let unused_variable: u32 = 0;
         println!("Hello, world!");
+
+        // What is the difference between a Rust function and a Rust macro?
+        // A macro expands at compile time, whereas a function is defined for runtime.
     }
 
     pub fn arrays() {
@@ -40,6 +43,21 @@ pub mod DataTypesAndModules {
         // destruction of array or tuple, it's better for usability
         let (name, latitude, longitude) = loc;
         println!("Location using destruction name: {}, lat: {}, lon: {}", name, latitude, longitude);
+    }
+
+    pub fn compiles_but_generates_runtime_error() {
+        // Since this code allocates 10M floating points to the stack, it generates a stack overflow.
+        //let x:[u64;10_000_000] = [1;10_000_000];
+
+        // thread 'main' has overflowed its stack
+        // fatal runtime error: stack overflow
+        //
+        // Process finished with exit code 134 (interrupted by signal 6: SIGABRT)
+
+        // This code runs correctly because X is in the heap now using vec! instead of the slice above!
+        let x = vec![1; 10_000_000];
+        println!("the array has a length of {} elements", x.len());
+
     }
 
 }

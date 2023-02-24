@@ -1,6 +1,14 @@
 
 /**
  * // https://doc.rust-lang.org/book/ch04-03-slices.html
+
+       // What is the difference between stack and heap memory?
+       // Stack memory stores values in the order it gets them and removes them in the opposite
+       // order, whereas heap memory stores values wherever there is free space.
+
+        error[E0277]: the type `String` cannot be indexed by `{integer}`
+        Rust strings do not support indexing.
+
  */
 pub mod StringsAndStringSlices {
 
