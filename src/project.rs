@@ -1,39 +1,51 @@
 
+
+mod geo {
+    const EARTH_RADIOS_IN_KILOMETERS: f64 = 6371.0;
+
+    // private method/function, as everything is by default private in modules!
+    // this is the encapsulation of methods.
+    pub fn distance(start_lat: f64, start_lon: f64, end_lat: f64, end_lon: f64) -> f64 {
+        let delta_lat = (start_lat - end_lat).to_radians();
+        let delta_lon = (start_lon - end_lon).to_radians();
+
+        // https://doc.rust-lang.org/std/
+
+        let inner_central_angle = f64::powi((delta_lat / 2.0).sin(), 2)
+            + start_lat.to_radians().cos()
+            * end_lat.to_radians().cos()
+            * f64::powi((delta_lon / 2.0).sin(), 2);
+
+        let central_angle = 2.0 * inner_central_angle.sqrt().asin();
+        EARTH_RADIOS_IN_KILOMETERS * central_angle
+    }
+}
+
 pub mod ProjectV1 {
+
+    use crate::project::geo;
+    use crate::project;
 
     // HAVERSINE FORMULA
     pub fn calculate_distance_between_airports() {
-        const EARTH_RADIOS_IN_KILOMETERS: f64 = 6371.0;
-
         let kcle_lat_degrees: f64 = 41.4075;
         let kcle_lon_degrees: f64 = -81.851111;
 
         let kslc_lat_degrees: f64 = 40.7861;
         let kslc_lon_degrees: f64 = -111.9822;
 
-        let kcle_lat_radians = kcle_lat_degrees.to_radians();
-        let kslc_lat_radians = kslc_lat_degrees.to_radians();
-        // https://doc.rust-lang.org/std/
-
-        let delta_lat = (kcle_lat_degrees - kslc_lat_degrees).to_radians();
-        let delta_lon = (kcle_lon_degrees - kslc_lon_degrees).to_radians();
-
-        let inner_central_angle = f64::powi((delta_lat / 2.0).sin(), 2)
-            + kcle_lat_radians.cos()
-            * kslc_lat_radians.cos()
-            * f64::powi((delta_lon / 2.0).sin(), 2);
-
-        let central_angle = 2.0 * inner_central_angle.sqrt().asin();
-        let distance = EARTH_RADIOS_IN_KILOMETERS * central_angle;
+        let distance = project::geo::distance(kcle_lat_degrees,
+                                              kcle_lon_degrees, kslc_lat_degrees,
+                                              kslc_lon_degrees);
         println!("The distance between two points is {:.1} kolometers", distance);
     }
 }
 
 pub mod ProjectV2 {
 
-    pub fn calculate_distance_between_airports() {
-        const EARTH_RADIOS_IN_KILOMETERS: f64 = 6371.0;
+    use crate::project::geo;
 
+    pub fn calculate_distance_between_airports() {
         // array of routes
         let route = [
             ("KCLE", 41.4075, -81.851111),
@@ -72,19 +84,9 @@ pub mod ProjectV2 {
                     continue;
                 }
                 Some(previous_value) => {
-                    let previous_waypoint_radians = previous_value.1.to_radians();
-                    let waypoint_radians = waypoint.1.to_radians();
-
-                    let delta_lat = (previous_value.1 - waypoint.1).to_radians();
-                    let delta_lon = (previous_value.2 - waypoint.2).to_radians();
-
-                    let inner_central_angle = f64::powi((delta_lat / 2.0).sin(), 2)
-                        + previous_waypoint_radians.cos()
-                        * waypoint_radians.cos()
-                        * f64::powi((delta_lon / 2.0).sin(), 2);
-
-                    let central_angle = 2.0 * inner_central_angle.sqrt().asin();
-                    let distance = EARTH_RADIOS_IN_KILOMETERS * central_angle;
+                    let distance = geo::distance(previous_value.1,
+                                                 previous_value.2, waypoint.1,
+                                                 waypoint.2);
                     total_distance += distance;
 
                     // set the current as previous
