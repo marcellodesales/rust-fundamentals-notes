@@ -47,45 +47,8 @@ use std::ops::{Add, Mul};
 pub mod data_types_and_variables;
 use crate::data_types_and_variables::DataTypesAndModules;
 
-fn strings_and_string_slices() {
-    // Strings mutable, stored in the heap because it can grow and shrink in size
-    // The size is not constant so it cannot be stored in the stack
-    let person_name_string: String = "Donald Mallard".to_string();
-    let person_name_string: String = String::from("Donald Mallard");
-
-    // String Slices are Immutable, can be stored in heap, stack or embedded in the compiled code
-    let person_name_slice: &str = "Donald Mallard";
-
-    // Just using the & in front of the variable to get its pointer memory address where data lives
-    // This is the so-called de-referencing
-    let person_slice_2: &String = &person_name_string;
-
-    // Converting String to &str is simple, we know the string is in the heap
-    let person_sliced: &str = person_name_string.as_str();
-
-    // Concatenation with Strings in rust is complicated
-    // Slices are immutable! so we can concatenate
-    let duck = "Duck";
-    let airlines = "Airlines";
-
-    let airline_name = [duck, " ", airlines].concat();
-    println!("Airline name using array concat: {}", airline_name);
-
-    let airline_name = format!("{} {}", duck, airlines);
-    println!("Airline name using format: {}", airline_name);
-    // can't change the value of immutable strings
-    // airline_name = airline_name + "d";
-
-    // mutable strings so it can change
-    let mut slogan = String::new();
-    // push a string
-    slogan.push_str("We hit the gorund");
-    // push just a character with single quotes
-    slogan.push(' ');
-    // concatenate
-    slogan = slogan + "every time";
-    println!("Our slogan: {}", slogan);
-}
+pub mod strings_and_slices;
+use crate::strings_and_slices::StringsAndStringSlices;
 
 fn numbers_variables() {
     // Rust can infer the data type at compile type, so there's no need to declare the type
@@ -1275,7 +1238,10 @@ fn main() {
     DataTypesAndModules::tuplues();
 
     // https://doc.rust-lang.org/book/ch04-03-slices.html
-    strings_and_string_slices();
+    StringsAndStringSlices::strings_in_heap();
+    StringsAndStringSlices::string_slices_in_stack();
+    StringsAndStringSlices::string_heap_pointers();
+    StringsAndStringSlices::string_to_string_slice_conversion();
 
     // https://doc.rust-lang.org/std/
     numbers_variables();
