@@ -79,67 +79,6 @@ fn variable_scope_and_shadowing() {
     let a: f32 = 5.6;
 }
 
-/**
- * The waypoint of the code
- */
-struct Waypoint {
-    name: String,
-    lat: f64,
-    lon: f64
-}
-
-struct Segment {
-    start: Waypoint,
-    end: Waypoint
-}
-
-struct Boeing {
-    required_crew: u8,
-    range: u16
-}
-
-struct Airbus {
-    required_crew: u8,
-    range: u16
-}
-
-// Traits is
-trait Flight {
-    fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool;
-}
-
-impl Flight for Boeing {
-    fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool {
-        // boeing you must have enough fuel for the destination + 150 miles
-        available_crew >= required_crew && range + 150 > distance
-    }
-}
-
-impl Flight for Airbus {
-    fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool {
-        // boeing you must have enough fuel for the destination + 280 miles
-        available_crew >= required_crew && range + 280 > distance
-    }
-}
-
-fn traits_for_structs_and_impl() {
-    let boeing = Boeing{
-        required_crew: 4,
-        range: 7403
-    };
-    let airbus = Airbus{
-        required_crew: 7,
-        range: 5280
-    };
-
-    let b_l = boeing.is_legal(boeing.required_crew, 18,
-                              boeing.range, 2385);
-    let a_l = airbus.is_legal(airbus.required_crew, 3,
-                              airbus.range, 2200);
-
-    println!("Is boeing flight legal? {}\nIs airbus flight legal: {}", b_l, a_l)
-}
-
 fn collections_support_sequences_maps_sets() {
     collections_support_sequences();
     collections_support_queues();
@@ -468,7 +407,7 @@ fn main() {
 
     data_structures_and_traits::StructsAndTraits::waypoint_data_structures_with_associated_data();
 
-    traits_for_structs_and_impl();
+    project::ProjectV3::traits_for_structs_and_impl();
 
     collections_support_sequences_maps_sets();
 
